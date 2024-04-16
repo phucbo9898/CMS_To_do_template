@@ -16,9 +16,9 @@ class CreateCommentTasksTable extends Migration
         Schema::create('comment_tasks', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('task_id');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('sender_id');
+            $table->longText('change_information')->nullable();
             $table->longText('comment')->nullable();
-            $table->timestamp('time_comment')->nullable();
             $table->timestamps();
         });
     }

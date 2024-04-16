@@ -56,6 +56,20 @@ class Task extends Model
         'status' => 3
     ];
 
+    const STATUS = [
+        1 => 'Open',
+        2 => 'In Progress',
+        3 => 'Resolve',
+        4 => 'Close',
+        5 => 'Done',
+    ];
+
+    const PRIORITY = [
+        1 => 'High Priority',
+        2 => 'Normal Priority',
+        3 => 'Low Priority',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
@@ -63,6 +77,16 @@ class Task extends Model
 
     public function subTasks()
     {
-        return $this->hasMany(SubTask::class, 'parent_id', 'id');
+        return $this->hasMany(SubTask::class, 'task_parent_id', 'id');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(CommentTask::class, 'task_id', 'id');
+    }
+
+    public function logs()
+    {
+        return $this->hasMany(TaskLog::class, 'task_id', 'id');
     }
 }

@@ -99,17 +99,13 @@ class LoginController
     protected function authenticated(Request $request, $user)
     {
         if (! $user->isActive()) {
-//            dd(1);
             auth()->logout();
-
             return redirect()->route('frontend.auth.login')->withFlashDanger(__('Your account has been deactivated.'));
         }
 
         event(new UserLoggedIn($user));
         if (config('boilerplate.access.user.single_login')) {
-//            dd(3);
             auth()->logoutOtherDevices($request->password);
         }
-//        dd(4);
     }
 }

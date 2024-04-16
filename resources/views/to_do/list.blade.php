@@ -9,7 +9,7 @@
         <x-slot name="header">
             @lang('To do list')
         </x-slot>
-        @if($logged_in_user->isAdmin())
+        @if($logged_in_user && $logged_in_user->isAdmin())
             <x-slot name="headerActions">
                 <x-utils.link
                     icon="cil-plus"

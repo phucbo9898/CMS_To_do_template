@@ -15,6 +15,7 @@ class CreateTaskLogsTable extends Migration
     {
         Schema::create('task_logs', function (Blueprint $table) {
             $table->id();
+            $table->integer('type')->comment('1: change assignee | 2: change date | 3: change category | 4: change priority');
             $table->unsignedBigInteger('task_id');
             $table->unsignedBigInteger('comment_task_id')->nullable();
             $table->longText('message');

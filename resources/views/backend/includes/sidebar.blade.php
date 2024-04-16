@@ -10,7 +10,7 @@
 
     <ul class="c-sidebar-nav">
         @if (
-            $logged_in_user->hasAllAccess() ||
+            $logged_in_user && $logged_in_user->hasAllAccess() ||
             (
                 $logged_in_user->can('admin.access.user.list') ||
                 $logged_in_user->can('admin.access.user.deactivate') ||
@@ -61,7 +61,7 @@
 
                 <ul class="c-sidebar-nav-dropdown-items">
                     @if (
-                        $logged_in_user->hasAllAccess() ||
+                        $logged_in_user && $logged_in_user->hasAllAccess() ||
                         (
                             $logged_in_user->can('admin.access.user.list') ||
                             $logged_in_user->can('admin.access.user.deactivate') ||
@@ -80,7 +80,7 @@
                         </li>
                     @endif
 
-                    @if ($logged_in_user->hasAllAccess())
+                    @if ($logged_in_user && $logged_in_user->hasAllAccess())
                         <li class="c-sidebar-nav-item">
                             <x-utils.link
                                 :href="route('admin.auth.role.index')"
@@ -117,32 +117,6 @@
                 </ul>
             </li>
         @endif
-
-        <li class="c-sidebar-nav-dropdown {{ activeClass(Route::is('admin.auth.user.*') || Route::is('admin.auth.role.*'), 'c-open c-show') }}">
-            <x-utils.link
-                href="#"
-                icon="c-sidebar-nav-icon cil-user"
-                class="c-sidebar-nav-dropdown-toggle"
-                :text="__('Test')" />
-
-            <ul class="c-sidebar-nav-dropdown-items">
-                <li class="c-sidebar-nav-item">
-                    <x-utils.link
-                        :href="route('admin.auth.user.index')"
-                        class="c-sidebar-nav-link"
-                        :text="__('User Management')"
-                        :active="activeClass(Route::is('admin.auth.user.*'), 'c-active')" />
-                </li>
-
-                <li class="c-sidebar-nav-item">
-                    <x-utils.link
-                        :href="route('admin.auth.role.index')"
-                        class="c-sidebar-nav-link"
-                        :text="__('Role Management')"
-                        :active="activeClass(Route::is('admin.auth.role.*'), 'c-active')" />
-                </li>
-            </ul>
-        </li>
     </ul>
 
     <button class="c-sidebar-minimizer c-class-toggler" type="button" data-target="_parent" data-class="c-sidebar-minimized"></button>

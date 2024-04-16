@@ -78,17 +78,17 @@
             <div class="modal-body">
                 @if(count($row->subTasks))
                     @foreach($row->subTasks as $subTask)
-                        <div class="sub-task-{{ $subTask->id }} p-3 border border-info mb-2">
+                        <div class="sub-task-{{ $subTask->task->id }} p-3 border border-info mb-2">
                             <h3 class="font-weight-bold text-center">
-                                <a href="{{ route('admin.to-do-list.view-sub-task', [$row->id, $subTask->id]) }}">{{ $subTask->name }}</a>
+                                <a href="{{ route('admin.to-do-list.view', $subTask->task->id) }}">{{ $subTask->task->name }}</a>
                             </h3>
                             <div class="information-subtask">
                                 <div class="assignee">
-                                    <span>@lang('Assignee: '){{ $subTask->assignee }}</span>
+                                    <span>@lang('Assignee: '){{ $subTask->task->assignee }}</span>
                                 </div>
                                 <div class="task-type">
                                     <span>@lang('Status: ')</span>
-                                    @switch($subTask->status)
+                                    @switch($subTask->task->status)
                                         @case($model::OPEN['status'])
                                             <span class="badge badge-danger">{{ $model::OPEN['name'] }}</span>
                                             @break
@@ -104,7 +104,7 @@
                                 </div>
                                 <div class="category">
                                     <span>@lang('Category: ')</span>
-                                    @if($subTask->category == 'CMS')
+                                    @if($subTask->task->category == 'CMS')
                                         <span class="badge badge-warning">CMS</span>
                                     @else
                                         <span class="badge badge-info">FE</span>
@@ -112,7 +112,7 @@
                                 </div>
                                 <div class="priority">
                                     <span>@lang('Priority: ')</span>
-                                    @if($subTask->priority == $model::HIGH_PRIORITY['status'])
+                                    @if($subTask->task->priority == $model::HIGH_PRIORITY['status'])
                                         <span class="badge badge-danger">{{ $model::HIGH_PRIORITY['name'] }}</span>
                                     @elseif($subTask->priority == $model::NORMAL_PRIORITY['status'])
                                         <span class="badge badge-primary">{{ $model::NORMAL_PRIORITY['name'] }}</span>
@@ -120,7 +120,7 @@
                                         <span class="badge badge-success">{{ $model::LOW_PRIORITY['name'] }}</span>
                                     @endif
                                 </div>
-                                <div class="start-due-date">@lang('Date: '){{ $subTask->start_due_date }}</div>
+                                <div class="start-due-date">@lang('Date: '){{ $subTask->task->start_due_date }}</div>
                             </div>
                         </div>
                     @endforeach

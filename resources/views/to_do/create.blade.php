@@ -85,7 +85,7 @@
 
                         <div class="col-md-3">
                             <select class="form-control" name="parent_id">
-                                <option value="" disabled selected>Choose Task</option>
+                                <option value="" disabled selected>@lang('Choose Task')</option>
                                 @foreach($lstTaskParent as $task)
                                     <option value="{{ $task->id }}">{{ $task->name }}</option>
                                 @endforeach
@@ -98,9 +98,9 @@
                     <label for="category" class="col-md-2 col-form-label">@lang('Category')</label>
                     <div class="col-md-3">
                         <select class="form-control" name="category">
-                            <option value="" {{ empty(old('category') ? 'selected' : '') }}>Choose category</option>
-                            <option value="CMS" {{ !empty(old('category')) && old('category') === 'CMS' ? 'selected' : '' }}>CMS</option>
-                            <option value="FE" {{ !empty(old('category')) && old('category') === 'FE' ? 'selected' : '' }}>FE</option>
+                            <option value="" {{ empty(old('category') ? 'selected' : '') }}>@lang('Choose category')</option>
+                            <option value="CMS" {{ !empty(old('category')) && old('category') === 'CMS' ? 'selected' : '' }}>@lang('CMS')</option>
+                            <option value="FE" {{ !empty(old('category')) && old('category') === 'FE' ? 'selected' : '' }}>@lang('FE')</option>
                         </select>
                     </div>
                 </div>
@@ -109,7 +109,7 @@
                     <label for="priority" class="col-md-2 col-form-label">@lang('Priority')</label>
                     <div class="col-md-3">
                         <select class="form-control" name="priority">
-                            <option value="">Choose priority</option>
+                            <option value="">@lang('Choose priority')</option>
                             <option value="{{ $model::HIGH_PRIORITY['status'] }}" {{ !empty(old('priority')) ? (old('priority') == $model::HIGH_PRIORITY['status'] ? 'selected' : '') : '' }}>{{ $model::HIGH_PRIORITY['name'] }}</option>
                             <option value="{{ $model::NORMAL_PRIORITY['status'] }}" {{ !empty(old('priority')) ? (old('priority') == $model::NORMAL_PRIORITY['status'] ? 'selected' : '') : 'selected' }}>{{ $model::NORMAL_PRIORITY['name'] }}</option>
                             <option value="{{ $model::LOW_PRIORITY['status'] }}" {{ !empty(old('priority')) ? (old('priority') == $model::LOW_PRIORITY['status'] ? 'selected' : '') : '' }}>{{ $model::LOW_PRIORITY['name'] }}</option>

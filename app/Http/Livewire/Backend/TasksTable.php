@@ -225,11 +225,18 @@ class TasksTable extends DataTableComponent
             ->leftJoin('users', 'users.id', '=', 'tasks.assignee_id')
             ->with([
                 'subTasks' => function ($q) {
-                    return $q->select('sub_tasks.*', 'users.name as assignee')
-                        ->leftJoin('users', 'users.id', '=', 'sub_tasks.assignee_id');
+                    $q->select('sub_tasks.*')->with([
+                        'task' => function ($q1) {
+                            return $q1->select('tasks.*', 'users.name as assignee')
+                                ->leftJoin('users', 'users.id', '=', 'tasks.assignee_id')
+                                ->where('tasks.active', Task::ACTIVE['number'])
+                                ->whereNotNull('parent_id');
+                        }
+                    ]);
                 }
             ])
             ->where('tasks.active', Task::ACTIVE['number'])
+            ->whereNull('parent_id')
         ;
 
         if (!empty($this->searchStatus) && $this->searchStatus[0] != "0") {

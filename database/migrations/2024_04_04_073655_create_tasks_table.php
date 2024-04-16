@@ -19,6 +19,7 @@ class CreateTasksTable extends Migration
             $table->string('name');
             $table->integer('status')->comment('1: open | 2: in progress | 3: resolve | 4: close | 5: done');
             $table->longText('content');
+            $table->unsignedBigInteger('parent_id')->nullable();
             $table->string('category')->nullable();
             $table->integer('total_sub_task')->nullable();
             $table->integer('priority')->comment('1: high priority | 2: normal priority | 3: low priority');
