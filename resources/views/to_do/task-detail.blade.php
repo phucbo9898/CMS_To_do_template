@@ -12,7 +12,7 @@
         }
 
         .task-comment > p > img {
-            width: 100%;
+            max-width: 100%;
             height: auto;
         }
 
@@ -22,18 +22,20 @@
         }
 
         .task-content > p > img {
-            width: 100%;
+            max-width: 100%;
             height: auto;
         }
     </style>
+
     <div class="d-flex justify-content-between">
         <h3 class="px-3">{{ $taskDetail->name }}</h3>
         <div>
             <x-utils.edit-button :href="route('admin.to-do-list.edit', $taskDetail->id)" />
         </div>
     </div>
-    <div class="card">
-        <div class="card-header">
+
+    <x-backend.card>
+        <x-slot name="header">
             <div class="infor-user d-flex">
                 <div class="avatar">
                     <img src="{{ $taskDetail->user_create->avatar ?? '' }}" alt="" style="width: 50px; border-radius: 50%;">
@@ -45,8 +47,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="card-body">
+        </x-slot>
+        <x-slot name="body">
             <div class="task-assignee">
                 <label for="">@lang('Assignee'):</label>
                 <span>{{ $taskDetail->assignee }}</span>
@@ -57,11 +59,10 @@
             <!-- Start Modal -->
             <div class="task-content-modal"></div>
             <!-- End Modal -->
-        </div>
-    </div>
+        </x-slot>
+    </x-backend.card>
 
-    <h3 class="px-3">@lang('Comments') {{ count($taskDetail->comments) }})</h3>
-
+    <h3 class="px-3">@lang('Comments') ({{ count($taskDetail->comments) }})</h3>
     <x-backend.card>
         <x-slot name="body">
             @foreach($taskDetail->comments as $comment)
@@ -108,8 +109,13 @@
                 <div class="modal-append"></div>
                 <!-- End Modal -->
             @endforeach
+        </x-slot>
+    </x-backend.card>
+
+    <h3>@lang('Add Comment')</h3>
+    <x-backend.card>
+        <x-slot name="body">
             <div class="p-3">
-                <label for="comment-task">@lang('Add Comment')</label>
                 <form action="{{ route('admin.to-do-list.add-comment', $taskDetail->id) }}" method="post">
                     @csrf
                     <div class="form-group row">
