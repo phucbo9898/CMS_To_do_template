@@ -54,7 +54,8 @@
 </x-livewire-tables::bs4.table.cell>
 
 <x-livewire-tables::bs4.table.cell>
-    <a href="#" data-toggle="modal" class="modal-subtask" data-target="#exampleModalSubtask-{{$row->id}}">{{ $row->total_sub_task }}</a>
+    <a href="#" data-toggle="modal" class="modal-subtask"
+       data-target="#exampleModalSubtask-{{$row->id}}">{{ $row->total_sub_task }}</a>
 </x-livewire-tables::bs4.table.cell>
 
 <x-livewire-tables::bs4.table.cell>
@@ -62,15 +63,17 @@
 </x-livewire-tables::bs4.table.cell>
 
 <x-livewire-tables::bs4.table.cell>
-    @include('to_do.includes.actions', ['task' => $row])
+    @include('backend.task.includes.actions', ['task' => $row])
 </x-livewire-tables::bs4.table.cell>
 
 <!-- Start Modal -->
-<div class="modal fade" id="exampleModalSubtask-{{$row->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="exampleModalSubtask-{{$row->id}}" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Sub Task by <b class="text-primary">{{ $row->name }}</b></h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">Sub Task by <b
+                        class="text-primary">{{ $row->name }}</b></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

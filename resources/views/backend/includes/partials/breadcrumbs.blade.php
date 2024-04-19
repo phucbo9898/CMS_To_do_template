@@ -3,10 +3,10 @@
         @foreach (Breadcrumbs::current() as $crumb)
             @if ($crumb->url() && !$loop->last)
                 <li class="breadcrumb-item">
-                    @if($logged_in_user->isAdmin())
-                        <x-utils.link :href="$crumb->url()" :text="$crumb->title()" />
-                    @else
+                    @if($crumb->title() == 'Home' && !$logged_in_user->isAdmin())
                         {{ $crumb->title() }}
+                    @else
+                        <x-utils.link :href="$crumb->url()" :text="$crumb->title()" />
                     @endif
                 </li>
             @else

@@ -10,7 +10,7 @@
 
     <ul class="c-sidebar-nav">
         @if (
-            $logged_in_user && $logged_in_user->hasAllAccess() ||
+            $logged_in_user->hasAllAccess() ||
             (
                 $logged_in_user->can('admin.access.user.list') ||
                 $logged_in_user->can('admin.access.user.deactivate') ||
@@ -61,7 +61,7 @@
 
                 <ul class="c-sidebar-nav-dropdown-items">
                     @if (
-                        $logged_in_user && $logged_in_user->hasAllAccess() ||
+                        $logged_in_user->hasAllAccess() ||
                         (
                             $logged_in_user->can('admin.access.user.list') ||
                             $logged_in_user->can('admin.access.user.deactivate') ||

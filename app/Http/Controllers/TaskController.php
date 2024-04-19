@@ -17,14 +17,14 @@ class TaskController extends Controller
 {
     public function index()
     {
-        return view('to_do.list');
+        return view('backend.task.list');
     }
 
     public function create()
     {
         $lstUser = User::where('active', User::ACTIVE)->get();
         $lstTaskParent = Task::get();
-        return view('to_do.create', ['lstUser' => $lstUser, 'lstTaskParent' => $lstTaskParent]);
+        return view('backend.task.create', ['lstUser' => $lstUser, 'lstTaskParent' => $lstTaskParent]);
     }
 
     public function store(Request $request)
@@ -102,7 +102,7 @@ class TaskController extends Controller
 
         $taskDetail['created_at'] = Carbon::parse($taskDetail->created_at ?? '')->tz($taskDetail->user_create->timezone)->format('M d, Y H:i:s');
 
-        return view('to_do.task-detail', ['taskDetail' => $taskDetail, 'lstUser' => $lstUser]);
+        return view('backend.task.task-detail', ['taskDetail' => $taskDetail, 'lstUser' => $lstUser]);
     }
 
     public function edit($id)
@@ -117,7 +117,7 @@ class TaskController extends Controller
         $startDate = str_replace('-' . $endDate, '', $start_due_date);
         $task['start_date'] = Carbon::parse($startDate)->format('Y-m-d');
         $task['end_date'] = Carbon::parse($endDate)->format('Y-m-d');
-        return view('to_do.edit', ['task' => $task, 'lstUser' => $lstUser]);
+        return view('backend.task.edit', ['task' => $task, 'lstUser' => $lstUser]);
     }
 
     public function addComment(Request $request, $id)

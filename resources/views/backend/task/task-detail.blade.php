@@ -26,12 +26,13 @@
             height: auto;
         }
     </style>
-
     <div class="d-flex justify-content-between">
         <h3 class="px-3">{{ $taskDetail->name }}</h3>
-        <div>
-            <x-utils.edit-button :href="route('admin.to-do-list.edit', $taskDetail->id)" />
-        </div>
+        @if($taskDetail->created_by === $logged_in_user->id)
+            <div>
+                <x-utils.edit-button :href="route('admin.to-do-list.edit', $taskDetail->id)" />
+            </div>
+        @endif
     </div>
 
     <x-backend.card>
@@ -66,7 +67,7 @@
     <x-backend.card>
         <x-slot name="body">
             @foreach($taskDetail->comments as $comment)
-                <div class="infor-user d-flex">
+                <div class="infor-user row">
                     <div class="avatar">
                         <img src="{{ $comment->userComment->avatar ?? '' }}" alt="" style="width: 50px; border-radius: 50%;">
                     </div>
@@ -78,29 +79,39 @@
                     </div>
                 </div>
 
-                <div class="information-comment p-3">
+                <div class="information-comment p-3 ml-1">
                     <div class="information">
-                        <ul style="font-size: 12px;">
+                        <ul style="font-size: 15px; list-style-type: circle;">
                             @foreach($comment->commentLogs as $log)
                                 @if($log->type === 5)
-                                    <li>@lang('Change Status'): {{ $log->message }} <i class="cil-arrow-right font-weight-bold"></i> {{ $log->message_update }}</li>
+                                    <li>
+                                        <span style="font-size: 12px;">@lang('Change Status'): {{ $log->message }} <i class="cil-arrow-right font-weight-bold"></i> {{ $log->message_update }}</span>
+                                    </li>
                                 @endif
                                 @if($log->type === 1)
-                                    <li>@lang('Change Assignee'): {{ $log->message }} <i class="cil-arrow-right font-weight-bold"></i> {{ $log->message_update }}</li>
+                                    <li>
+                                        <span style="font-size: 12px;">@lang('Change Assignee'): {{ $log->message }} <i class="cil-arrow-right font-weight-bold"></i> {{ $log->message_update }}</span>
+                                    </li>
                                 @endif
                                 @if($log->type === 3)
-                                    <li>@lang('Change Category'): {{ $log->message }} <i class="cil-arrow-right font-weight-bold"></i> {{ $log->message_update }}</li>
+                                    <li>
+                                        <span style="font-size: 12px;">@lang('Change Category'): {{ $log->message }} <i class="cil-arrow-right font-weight-bold"></i> {{ $log->message_update }}</span>
+                                    </li>
                                 @endif
                                 @if($log->type === 4)
-                                    <li>@lang('Change Priority'): {{ $task::PRIORITY[$log->message] }} <i class="cil-arrow-right font-weight-bold"></i> {{ $task::PRIORITY[$log->message_update] }}</li>
+                                    <li>
+                                        <span style="font-size: 12px;">@lang('Change Priority'): {{ $task::PRIORITY[$log->message] }} <i class="cil-arrow-right font-weight-bold"></i> {{ $task::PRIORITY[$log->message_update] }}</span>
+                                    </li>
                                 @endif
                                 @if($log->type === 2)
-                                    <li>@lang('Change date'): {{ $log->message }} <i class="cil-arrow-right font-weight-bold"></i> {{ $log->message_update }}</li>
+                                    <li>
+                                        <span style="font-size: 12px;">@lang('Change date'): {{ $log->message }} <i class="cil-arrow-right font-weight-bold"></i> {{ $log->message_update }}</span>
+                                    </li>
                                 @endif
                             @endforeach
                         </ul>
                     </div>
-                    <div class="task-comment">
+                    <div class="task-comment ml-4">
                         {!! $comment->comment !!}
                     </div>
                 </div>
